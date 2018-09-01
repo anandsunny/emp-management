@@ -1,0 +1,87 @@
+<br>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{childEmp.name}}</h3>
+  </div>
+  <div class="panel-body">
+
+    <div class="col-xs-10">
+
+      <div class="row vertical-align">
+
+        <div class="col-xs-4">
+          <img class="imageClass" [src]="childEmp.photoPath" />
+        </div>
+        <div class="col-xs-8">
+
+          <div class="row">
+            <div class="col-xs-6">
+              Gender
+            </div>
+            <div class="col-xs-6">
+              : {{childEmp.gender}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              Date of Birth
+            </div>
+            <div class="col-xs-6">
+              : {{childEmp.dateOfBirth | date}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              Contact Preference
+            </div>
+            <div class="col-xs-6">
+              : {{childEmp.contactPreference}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              Phone
+            </div>
+            <div class="col-xs-6">
+              : {{childEmp.phoneNumber}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              Email
+            </div>
+            <div class="col-xs-6">
+              : {{childEmp.email}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              Department
+            </div>
+            <div class="col-xs-6" [ngSwitch]="childEmp.department">
+              : <span *ngSwitchCase="1">Help Desk</span>
+              <span *ngSwitchCase="2">HR</span>
+              <span *ngSwitchCase="3">IT</span>
+              <span *ngSwitchCase="4">Payroll</span>
+              <span *ngSwitchCaseDefault>N/A</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              Is Active
+            </div>
+            <div class="col-xs-6">
+              : {{childEmp.isActive}}
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <a [routerLink]="['/list', {id: childEmp.id}]" queryParamsHandling="preserve" class="btn btn-success">Back To List</a>
+    <button class="btn btn-info pull-right" (click)="onNextEmp()">View Next Employee</button>
+  </div>
+</div>

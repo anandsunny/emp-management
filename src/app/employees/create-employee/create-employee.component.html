@@ -1,0 +1,168 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+      <form #empForm="ngForm" (ngSubmit)="saveEmp(empForm)">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <p>Create Employee</p>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input 
+                        class="form-control"
+                        name="name" 
+                        [(ngModel)]="employee.name"
+                        #fname="ngModel"
+                        required pattern="[a-zA-Z]{6}" appEmployee>
+                        <div class="alert alert-danger"
+                        *ngIf="fname.dirty && fname.errors">
+                          <span *ngIf="fname.errors.required">Ise bharana padega.</span>
+                          <span *ngIf="fname.errors.pattern">
+                            sirf charecter's hi lunga wo bhi 6 akshar ka.
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="email">E-Mail</label>
+                      <input type="email"
+                        class="form-control"
+                        name="email"
+                        [(ngModel)]="employee.email" required>
+                    </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Contact Preference </label> 
+                        <div class="form-control">
+                            <label class="radio-inline">
+                                <input type="radio" 
+                                name="c_preference" 
+                                value="email" 
+                                [(ngModel)]="employee.contactPreference" /> E-Mail
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" 
+                                name="c_preference" 
+                                value="phone" 
+                                [(ngModel)]="employee.contactPreference" /> Phone
+                            </label>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Gender </label> 
+                        <div class="form-control">
+                          <label class="radio-inline">
+                              <input type="radio" 
+                              name="gender" 
+                              value="male" 
+                              [(ngModel)]="employee.gender" /> Male
+                          </label>
+                          <label class="radio-inline">
+                              <input type="radio" 
+                              name="gender" 
+                              value="female" 
+                              [(ngModel)]="employee.gender" /> Female
+                          </label>
+                        </div>
+                      </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Date Of Birth</label>
+                    <input type="date" 
+                    name="dob" 
+                    [(ngModel)]="employee.dateOfBirth" 
+                    class="form-control" 
+                    placeholder="dd/mm/yy" />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Department</label>
+                        <select name="department" 
+                        [(ngModel)]="employee.department" 
+                        class="form-control" #dep="ngModel" required>
+                          <option value="-1">Select Department</option>
+                          <option *ngFor="let department of departments" [value]="department.id">
+                            {{ department.name }}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="alert alert-danger" *ngIf="dep.dirty && dep.invalid">
+                        this field is required.
+                      </div>
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Select Photo</label>
+                        <select name="photoPath" 
+                        class="form-control"  
+                        [(ngModel)]="employee.photoPath" required>
+                          <option [ngValue]="null">Select Photo</option>
+                          <option *ngFor="let photo of photos" [value]="photo.path">
+                            {{ photo.name }}
+                          </option>
+                        </select>
+                      </div>
+                </div>
+                <div class="col-sm-6"><br>
+                      <div class="form-group">
+                        <div class="form-control">
+                          <label class="checkbox-inline">
+                            <input type="checkbox" 
+                            name="isActive" 
+                            [(ngModel)]="employee.isActive" > IsActive
+                          </label>
+                        </div>
+                      </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Mobile No.</label>
+                    <input type="text" 
+                    name="phoneNumber"
+                    class="form-control" 
+                    [(ngModel)]="employee.phoneNumber" >
+                  </div>
+                </div>
+                <div class="col-sm-6"></div>
+              </div>
+              <div class="row" *ngIf="employee.photoPath != null" >
+                <div class="col-sm-6 col-sm-offset-3">
+                  <div class="form-group" >
+                    <img [src]="employee.photoPath" alt="image preview" class="img img-thumb" width="200px" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-primary btn-block" type="submit" [disabled]="empForm.invalid" >Save</button>
+            </div>
+          </div>
+        </form>
+        <pre>
+        {{ empForm.value | json }}
+        {{ employee | json }}
+        </pre>
+  </div>
+</div>
